@@ -1,7 +1,12 @@
 <!-- Parentid Field -->
 <div class="col-sm-12">
-    {!! Form::label('parentID', 'Parentid:') !!}
-    <p>{{ $category->parentID }}</p>
+    {!! Form::label('parentID', 'Parent:') !!}
+    <p><?php
+        if($category!=null)
+            echo $category->nameAr;
+        else
+            echo 'none';
+        ?></p>
 </div>
 
 <!-- Name Field -->
@@ -19,6 +24,6 @@
 <!-- Image Field -->
 <div class="col-sm-12">
     {!! Form::label('image', 'Image:') !!}
-    <p>{{ $category->image }}</p>
+    <a href='/categoryImages/{!! $category->image  !!}'>click to view the image</a>
 </div>
 

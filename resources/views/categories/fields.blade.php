@@ -1,7 +1,17 @@
 <!-- Parentid Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('parentID', 'Parentid:') !!}
-    {!! Form::number('parentID', null, ['class' => 'form-control']) !!}
+    <?php
+        $defulteCat=null;
+        if( isset($category))
+            $defulteCat=$category->id;
+        $cat=array('none' => null);
+        foreach($categories as $category1)
+            $cat[$category1->id]=$category1->nameAr;
+    ?>
+    {!! Form::label('parentID', 'Parent:') !!}
+    {!! Form::select('parentID', $cat,null, ['class' => 'form-control']) !!}
+
+
 </div>
 
 <!-- Name Field -->
@@ -18,6 +28,11 @@
 
 <!-- Image Field -->
 <div class="form-group col-sm-12 col-lg-12">
+    <?php
+
+    if( isset($category))
+        echo "<a href='/categoryImages/$category->image'>click to view the image</a><br>";
+        ?>
     {!! Form::label('image', 'Image:') !!}
-    {!! Form::textarea('image', null, ['class' => 'form-control']) !!}
+    {!! Form::file('image') !!}
 </div>

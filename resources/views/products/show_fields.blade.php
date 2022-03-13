@@ -13,7 +13,8 @@
 <!-- Image Field -->
 <div class="col-sm-12">
     {!! Form::label('Image', 'Image:') !!}
-    <p>{{ $product->Image }}</p>
+    <br>
+    <a href="/productImages/{{ $product->Image }}">click to view the image</a>
 </div>
 
 <!-- Description Field -->
@@ -49,6 +50,13 @@
 <!-- Categoryid Field -->
 <div class="col-sm-12">
     {!! Form::label('CategoryID', 'Categoryid:') !!}
-    <p>{{ $product->CategoryID }}</p>
+    <p><?php
+        if ($categories->find($product->CategoryID) != null) {
+            echo $categories->find($product->CategoryID)->nameAr;
+        } else {
+            echo 'none';
+        }
+        ?>
+    </p>
 </div>
 

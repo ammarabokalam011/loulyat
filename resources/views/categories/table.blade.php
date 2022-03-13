@@ -2,7 +2,7 @@
     <table class="table" id="categories-table">
         <thead>
         <tr>
-            <th>Parentid</th>
+            <th>Parent</th>
         <th>Name</th>
         <th>Namear</th>
         <th>Image</th>
@@ -12,10 +12,17 @@
         <tbody>
         @foreach($categories as $category)
             <tr>
-                <td>{{ $category->parentID }}</td>
+                <td>
+                    <?php
+                    if($categories->find( $category->parentID)!=null){
+                        echo $categories->find( $category->parentID)->nameAr;
+                    }else{
+                        echo 'none';
+                    }
+                    ?></td>
             <td>{{ $category->name }}</td>
             <td>{{ $category->nameAr }}</td>
-            <td>{{ $category->image }}</td>
+                <td><a href="/categoryImages/{{ $category->image }}">click to view the image</a></td>
                 <td width="120">
                     {!! Form::open(['route' => ['categories.destroy', $category->id], 'method' => 'delete']) !!}
                     <div class='btn-group'>

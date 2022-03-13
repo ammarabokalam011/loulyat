@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateproductRequest;
 use App\Http\Requests\UpdateproductRequest;
+use App\Repositories\categoryRepository;
 use App\Repositories\productRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
@@ -12,12 +13,14 @@ use Response;
 
 class productController extends AppBaseController
 {
-    /** @var productRepository $productRepository*/
+    /** @var productRepository $productRepository */
     private $productRepository;
+    private $categoryRepository;
 
-    public function __construct(productRepository $productRepo)
+    public function __construct(productRepository $productRepo, categoryRepository $categoryRepo)
     {
         $this->productRepository = $productRepo;
+        $this->categoryRepository = $categoryRepo;
     }
 
     /**
@@ -30,9 +33,10 @@ class productController extends AppBaseController
     public function index(Request $request)
     {
         $products = $this->productRepository->all();
-
+        $categories = $this->categoryRepository->all();
         return view('products.index')
-            ->with('products', $products);
+            ->with('products', $products)
+            ->with('categories', $categories);
     }
 
     /**
@@ -42,7 +46,9 @@ class productController extends AppBaseController
      */
     public function create()
     {
-        return view('products.create');
+        $categories = $this->categoryRepository->all();
+        return view('products.create')
+            ->with('categories', $categories);
     }
 
     /**
@@ -54,10 +60,11 @@ class productController extends AppBaseController
      */
     public function store(CreateproductRequest $request)
     {
+        $request->image->move(public_path('productImages'), $request->image->getClientOriginalName());
         $input = $request->all();
-
+        $input['Image']=$request->image->getClientOriginalName();
         $product = $this->productRepository->create($input);
-
+//        dd($product);
         Flash::success('Product saved successfully.');
 
         return redirect(route('products.index'));
@@ -73,14 +80,16 @@ class productController extends AppBaseController
     public function show($id)
     {
         $product = $this->productRepository->find($id);
-
+        $categories = $this->categoryRepository->all();
         if (empty($product)) {
             Flash::error('Product not found');
 
             return redirect(route('products.index'));
         }
 
-        return view('products.show')->with('product', $product);
+        return view('products.show')
+            ->with('product', $product)
+            ->with('categories', $categories);
     }
 
     /**
@@ -93,6 +102,7 @@ class productController extends AppBaseController
     public function edit($id)
     {
         $product = $this->productRepository->find($id);
+        $categories = $this->categoryRepository->all();
 
         if (empty($product)) {
             Flash::error('Product not found');
@@ -100,7 +110,9 @@ class productController extends AppBaseController
             return redirect(route('products.index'));
         }
 
-        return view('products.edit')->with('product', $product);
+        return view('products.edit')
+            ->with('product', $product)
+            ->with('categories', $categories);
     }
 
     /**
@@ -120,8 +132,13 @@ class productController extends AppBaseController
 
             return redirect(route('products.index'));
         }
-
-        $product = $this->productRepository->update($request->all(), $id);
+        $input = $request->all();
+        if($request->hasFile('image')){
+            \Illuminate\Support\Facades\File::delete(public_path('productImages').'\\'.$product->image);
+            $request->image->move(public_path('productImages'), $request->image->getClientOriginalName());
+            $input['Image']=$request->image->getClientOriginalName();
+        }
+        $product = $this->productRepository->update($input, $id);
 
         Flash::success('Product updated successfully.');
 
@@ -133,9 +150,9 @@ class productController extends AppBaseController
      *
      * @param int $id
      *
+     * @return Response
      * @throws \Exception
      *
-     * @return Response
      */
     public function destroy($id)
     {
@@ -146,7 +163,7 @@ class productController extends AppBaseController
 
             return redirect(route('products.index'));
         }
-
+        \Illuminate\Support\Facades\File::delete(public_path('productImages').'\\'.$product->Image);
         $this->productRepository->delete($id);
 
         Flash::success('Product deleted successfully.');

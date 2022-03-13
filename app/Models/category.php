@@ -48,8 +48,7 @@ class category extends Model
         'id' => 'integer',
         'parentID' => 'integer',
         'name' => 'string',
-        'nameAr' => 'string',
-        'image' => 'string'
+        'nameAr' => 'string'
     ];
 
     /**
@@ -61,7 +60,7 @@ class category extends Model
         'parentID' => 'nullable',
         'name' => 'string|max:255',
         'nameAr' => 'string|max:255',
-        'image' => 'nullable|string',
+        'image' => 'nullable',
         'created_at' => 'nullable',
         'updated_at' => 'nullable'
     ];

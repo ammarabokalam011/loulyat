@@ -6,8 +6,10 @@ use App\Http\Requests\CreatecategoryRequest;
 use App\Http\Requests\UpdatecategoryRequest;
 use App\Repositories\categoryRepository;
 use App\Http\Controllers\AppBaseController;
+use Faker\Core\File;
 use Illuminate\Http\Request;
 use Flash;
+use Illuminate\Support\Facades\Storage;
 use Response;
 
 class categoryController extends AppBaseController
@@ -42,7 +44,9 @@ class categoryController extends AppBaseController
      */
     public function create()
     {
-        return view('categories.create');
+        $categories = $this->categoryRepository->all();
+        return view('categories.create')
+            ->with('categories', $categories);
     }
 
     /**
@@ -54,8 +58,18 @@ class categoryController extends AppBaseController
      */
     public function store(CreatecategoryRequest $request)
     {
+        if($request->request->get('parentID')=='none')
+            $request->request->set('parentID',null);
+        $request->image->move(public_path('categoryImages'), $request->image->getClientOriginalName());
         $input = $request->all();
-
+        $input['image']=$request->image->getClientOriginalName();
+//        $name = $request->file('image')->getClientOriginalName();
+//        $path = $request->file('image')->store('public/categories');
+//        $save = new File;
+//
+//        $save->name = $name;
+//        $save->path = $path;
+//        $request->request->set('image',$save);
         $category = $this->categoryRepository->create($input);
 
         Flash::success('Category saved successfully.');
@@ -93,6 +107,7 @@ class categoryController extends AppBaseController
     public function edit($id)
     {
         $category = $this->categoryRepository->find($id);
+        $categories = $this->categoryRepository->all();
 
         if (empty($category)) {
             Flash::error('Category not found');
@@ -100,7 +115,9 @@ class categoryController extends AppBaseController
             return redirect(route('categories.index'));
         }
 
-        return view('categories.edit')->with('category', $category);
+        return view('categories.edit')
+            ->with('category', $category)
+            ->with('categories', $categories);;
     }
 
     /**
@@ -120,8 +137,15 @@ class categoryController extends AppBaseController
 
             return redirect(route('categories.index'));
         }
+        if($request->request->get('parentID')=='none')
+            $request->request->set('parentID',null);
 
-        $category = $this->categoryRepository->update($request->all(), $id);
+        \Illuminate\Support\Facades\File::delete(public_path('categoryImages').'\\'.$category->image);
+
+        $request->image->move(public_path('categoryImages'), $request->image->getClientOriginalName());
+        $input = $request->all();
+        $input['image']=$request->image->getClientOriginalName();
+        $category = $this->categoryRepository->update($input, $id);
 
         Flash::success('Category updated successfully.');
 
@@ -146,6 +170,9 @@ class categoryController extends AppBaseController
 
             return redirect(route('categories.index'));
         }
+        \Illuminate\Support\Facades\File::delete(public_path('categoryImages').'\\'.$category->image);
+//        dd(public_path('categoryImages').'\\'.$category->image);
+//        Storage::delete(public_path('categoryImages').'\\'.$category->image);
 
         $this->categoryRepository->delete($id);
 

@@ -12,8 +12,13 @@
 
 <!-- Image Field -->
 <div class="form-group col-sm-12 col-lg-12">
-    {!! Form::label('Image', 'Image:') !!}
-    {!! Form::textarea('Image', null, ['class' => 'form-control']) !!}
+    <?php
+
+    if( isset($product))
+        echo "<a href='/productImages/$product->Image'>click to view the image</a><br>";
+    ?>
+    {!! Form::label('image', 'Image:') !!}
+    {!! Form::file('image') !!}
 </div>
 
 <!-- Description Field -->
@@ -53,5 +58,14 @@
 <!-- Categoryid Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('CategoryID', 'Categoryid:') !!}
-    {!! Form::number('CategoryID', null, ['class' => 'form-control']) !!}
+    <?php
+    $defulteCat=null;
+    if( isset($category))
+        $defulteCat=$category->id;
+    $cat=array('none' => null);
+    foreach($categories as $category1)
+        $cat[$category1->id]=$category1->nameAr;
+    ?>
+
+    {!! Form::select('CategoryID', $cat,null, ['class' => 'form-control']) !!}
 </div>

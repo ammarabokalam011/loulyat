@@ -17,18 +17,18 @@
         <tbody>
         @foreach($products as $product)
             <tr>
-                <td>{{ $product->Name }}</td>
-                <td>{{ $product->NameAr }}</td>
-                <td><a href="/productImages/{{ $product->Image }}">click to view the image</a></td>
-                <td>{{ $product->Description }}</td>
-                <td>{{ $product->Specification }}</td>
-                <td>{{ $product->Price }}</td>
-                <td>{{ $product->Quantity }}</td>
-                <td>{{ $product->Available }}</td>
+                <td>{{ $product->name }}</td>
+                <td>{{ $product->nameAr }}</td>
+                <td><a href="/productImages/{{ $product->image }}">click to view the image</a></td>
+                <td>{{ $product->description }}</td>
+                <td>{{ $product->specification }}</td>
+                <td>{{ $product->price }}</td>
+                <td>{{ $product->quantity }}</td>
+                <td>{{ $product->available }}</td>
                 <td>
                     <?php
-                    if ($categories->find($product->CategoryID) != null) {
-                        echo $categories->find($product->CategoryID)->nameAr;
+                    if ($categories->find($product->categoryID) != null) {
+                        echo $categories->find($product->categoryID)->nameAr;
                     } else {
                         echo 'none';
                     }

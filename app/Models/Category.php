@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string $nameAr
  * @property string $image
  */
-class category extends Model
+class Category extends Model
 {
     use SoftDeletes;
 

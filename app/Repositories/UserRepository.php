@@ -2,30 +2,24 @@
 
 namespace App\Repositories;
 
-use App\Models\product;
+use App\Models\category;
+use App\Models\User;
 use App\Repositories\BaseRepository;
 
 /**
- * Class productRepository
+ * Class categoryRepository
  * @package App\Repositories
- * @version March 12, 2022, 11:32 pm UTC
+ * @version March 12, 2022, 11:31 pm UTC
 */
 
-class productRepository extends BaseRepository
+class UserRepository extends BaseRepository
 {
     /**
      * @var array
      */
     protected $fieldSearchable = [
-        'Name',
-        'NameAr',
-        'Image',
-        'Description',
-        'Specification',
-        'Price',
-        'Quantity',
-        'Available',
-        'CategoryID'
+        'name',
+        'email',
     ];
 
     /**
@@ -43,6 +37,6 @@ class productRepository extends BaseRepository
      **/
     public function model()
     {
-        return product::class;
+        return User::class;
     }
 }

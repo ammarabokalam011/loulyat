@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreatecategoryRequest;
-use App\Http\Requests\UpdatecategoryRequest;
+use App\Http\Requests\CreateCategoryRequest;
+use App\Http\Requests\UpdateCategoryRequest;
 use App\Repositories\categoryRepository;
 use App\Http\Controllers\AppBaseController;
 use Faker\Core\File;
@@ -12,13 +12,14 @@ use Flash;
 use Illuminate\Support\Facades\Storage;
 use Response;
 
-class categoryController extends AppBaseController
+class CategoryController extends AppBaseController
 {
-    /** @var categoryRepository $categoryRepository*/
+    /** @var CategoryRepository $categoryRepository*/
     private $categoryRepository;
 
-    public function __construct(categoryRepository $categoryRepo)
+    public function __construct(CategoryRepository $categoryRepo)
     {
+        $this->middleware('auth');
         $this->categoryRepository = $categoryRepo;
     }
 
@@ -52,11 +53,11 @@ class categoryController extends AppBaseController
     /**
      * Store a newly created category in storage.
      *
-     * @param CreatecategoryRequest $request
+     * @param CreateCategoryRequest $request
      *
      * @return Response
      */
-    public function store(CreatecategoryRequest $request)
+    public function store(CreateCategoryRequest $request)
     {
         if($request->request->get('parentID')=='none')
             $request->request->set('parentID',null);
@@ -124,11 +125,11 @@ class categoryController extends AppBaseController
      * Update the specified category in storage.
      *
      * @param int $id
-     * @param UpdatecategoryRequest $request
+     * @param UpdateCategoryRequest $request
      *
      * @return Response
      */
-    public function update($id, UpdatecategoryRequest $request)
+    public function update($id, UpdateCategoryRequest $request)
     {
         $category = $this->categoryRepository->find($id);
 
@@ -171,9 +172,6 @@ class categoryController extends AppBaseController
             return redirect(route('categories.index'));
         }
         \Illuminate\Support\Facades\File::delete(public_path('categoryImages').'\\'.$category->image);
-//        dd(public_path('categoryImages').'\\'.$category->image);
-//        Storage::delete(public_path('categoryImages').'\\'.$category->image);
-
         $this->categoryRepository->delete($id);
 
         Flash::success('Category deleted successfully.');

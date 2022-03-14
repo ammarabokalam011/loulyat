@@ -22,7 +22,11 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
-Route::resource('categories', \App\Http\Controllers\categoryController::class);
+Route::resource('categories', App\Http\Controllers\CategoryController::class);
 
 
-Route::resource('products', App\Http\Controllers\productController::class);
+Route::resource('products', App\Http\Controllers\ProductController::class);
+
+Route::get('users/rest/{id}','App\Http\Controllers\UserController@rest')->name('users.rest');
+
+Route::resource('users', App\Http\Controllers\UserController::class);

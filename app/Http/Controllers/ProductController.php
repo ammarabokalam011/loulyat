@@ -2,23 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateproductRequest;
-use App\Http\Requests\UpdateproductRequest;
+use App\Http\Requests\CreateProductRequest;
+use App\Http\Requests\UpdateProductRequest;
 use App\Repositories\categoryRepository;
 use App\Repositories\productRepository;
-use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
 use Response;
 
-class productController extends AppBaseController
+class ProductController extends AppBaseController
 {
-    /** @var productRepository $productRepository */
+    /** @var ProductRepository $productRepository */
     private $productRepository;
     private $categoryRepository;
 
-    public function __construct(productRepository $productRepo, categoryRepository $categoryRepo)
+    public function __construct(ProductRepository $productRepo, CategoryRepository $categoryRepo)
     {
+        $this->middleware('auth');
         $this->productRepository = $productRepo;
         $this->categoryRepository = $categoryRepo;
     }
@@ -54,19 +54,17 @@ class productController extends AppBaseController
     /**
      * Store a newly created product in storage.
      *
-     * @param CreateproductRequest $request
+     * @param CreateProductRequest $request
      *
      * @return Response
      */
-    public function store(CreateproductRequest $request)
+    public function store(CreateProductRequest $request)
     {
         $request->image->move(public_path('productImages'), $request->image->getClientOriginalName());
         $input = $request->all();
-        $input['Image']=$request->image->getClientOriginalName();
+        $input['image']=$request->image->getClientOriginalName();
         $product = $this->productRepository->create($input);
-//        dd($product);
         Flash::success('Product saved successfully.');
-
         return redirect(route('products.index'));
     }
 
@@ -119,11 +117,11 @@ class productController extends AppBaseController
      * Update the specified product in storage.
      *
      * @param int $id
-     * @param UpdateproductRequest $request
+     * @param UpdateProductRequest $request
      *
      * @return Response
      */
-    public function update($id, UpdateproductRequest $request)
+    public function update($id, UpdateProductRequest $request)
     {
         $product = $this->productRepository->find($id);
 
@@ -136,7 +134,7 @@ class productController extends AppBaseController
         if($request->hasFile('image')){
             \Illuminate\Support\Facades\File::delete(public_path('productImages').'\\'.$product->image);
             $request->image->move(public_path('productImages'), $request->image->getClientOriginalName());
-            $input['Image']=$request->image->getClientOriginalName();
+            $input['image']=$request->image->getClientOriginalName();
         }
         $product = $this->productRepository->update($input, $id);
 
@@ -163,7 +161,7 @@ class productController extends AppBaseController
 
             return redirect(route('products.index'));
         }
-        \Illuminate\Support\Facades\File::delete(public_path('productImages').'\\'.$product->Image);
+        \Illuminate\Support\Facades\File::delete(public_path('productImages').'\\'.$product->image);
         $this->productRepository->delete($id);
 
         Flash::success('Product deleted successfully.');

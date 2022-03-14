@@ -12,44 +12,44 @@
 
 <!-- Image Field -->
 <div class="col-sm-12">
-    {!! Form::label('Image', 'Image:') !!}
+    {!! Form::label('image', 'Image:') !!}
     <br>
-    <a href="/productImages/{{ $product->Image }}">click to view the image</a>
+    <a href="/productImages/{{ $product->image }}">click to view the image</a>
 </div>
 
 <!-- Description Field -->
 <div class="col-sm-12">
-    {!! Form::label('Description', 'Description:') !!}
-    <p>{{ $product->Description }}</p>
+    {!! Form::label('description', 'Description:') !!}
+    <p>{{ $product->description }}</p>
 </div>
 
 <!-- Specification Field -->
 <div class="col-sm-12">
-    {!! Form::label('Specification', 'Specification:') !!}
-    <p>{{ $product->Specification }}</p>
+    {!! Form::label('specification', 'Specification:') !!}
+    <p>{{ $product->specification }}</p>
 </div>
 
 <!-- Price Field -->
 <div class="col-sm-12">
-    {!! Form::label('Price', 'Price:') !!}
-    <p>{{ $product->Price }}</p>
+    {!! Form::label('price', 'Price:') !!}
+    <p>{{ $product->price }}</p>
 </div>
 
 <!-- Quantity Field -->
 <div class="col-sm-12">
-    {!! Form::label('Quantity', 'Quantity:') !!}
-    <p>{{ $product->Quantity }}</p>
+    {!! Form::label('quantity', 'Quantity:') !!}
+    <p>{{ $product->quantity }}</p>
 </div>
 
 <!-- Available Field -->
 <div class="col-sm-12">
-    {!! Form::label('Available', 'Available:') !!}
-    <p>{{ $product->Available }}</p>
+    {!! Form::label('available', 'Available:') !!}
+    <p>{{ $product->available }}</p>
 </div>
 
 <!-- Categoryid Field -->
 <div class="col-sm-12">
-    {!! Form::label('CategoryID', 'Categoryid:') !!}
+    {!! Form::label('categoryID', 'Categoryid:') !!}
     <p><?php
         if ($categories->find($product->CategoryID) != null) {
             echo $categories->find($product->CategoryID)->nameAr;

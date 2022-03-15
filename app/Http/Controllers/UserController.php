@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateCategoryRequest;
+use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Repositories\UserRepository;
@@ -51,16 +52,19 @@ class UserController extends AppBaseController
     /**
      * Store a newly created category in storage.
      *
-     * @param CreateCategoryRequest $request
+     * @param CreateUserRequest $request
      *
      * @return Response
      */
     public function store(CreateUserRequest $request)
     {
         $input = $request->all();
+
+        $password=Str::random(10);
+        $input['password']=$password;
         $user = $this->userRepository->create($input);
 
-        Flash::success('User saved successfully.');
+        Flash::success('User saved successfully.<br>the new passsword is '.$password);
 
         return redirect(route('users.index'));
     }

@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Models\category;
+use App\Models\Category;
 use App\Repositories\BaseRepository;
 
 /**
@@ -38,6 +38,6 @@ class CategoryRepository extends BaseRepository
      **/
     public function model()
     {
-        return category::class;
+        return Category::class;
     }
 }

@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateProductRequest;
 use App\Http\Requests\UpdateProductRequest;
-use App\Repositories\categoryRepository;
-use App\Repositories\productRepository;
+use App\Repositories\CategoryRepository;
+use App\Repositories\ProductRepository;
 use Illuminate\Http\Request;
 use Flash;
 use Response;

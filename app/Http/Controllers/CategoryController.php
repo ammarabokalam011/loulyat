@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
-use App\Repositories\categoryRepository;
+use App\Repositories\CategoryRepository;
 use App\Http\Controllers\AppBaseController;
 use Faker\Core\File;
 use Illuminate\Http\Request;
@@ -14,12 +14,13 @@ use Response;
 
 class CategoryController extends AppBaseController
 {
+
     /** @var CategoryRepository $categoryRepository*/
     private $categoryRepository;
 
     public function __construct(CategoryRepository $categoryRepo)
     {
-        $this->middleware('auth');
+
         $this->categoryRepository = $categoryRepo;
     }
 

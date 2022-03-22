@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Models\product;
+use App\Models\Product;
 use App\Repositories\BaseRepository;
 
 /**
@@ -43,6 +43,6 @@ class ProductRepository extends BaseRepository
      **/
     public function model()
     {
-        return product::class;
+        return Product::class;
     }
 }

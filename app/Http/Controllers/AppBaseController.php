@@ -20,7 +20,7 @@ class AppBaseController extends Controller
 {
     public function sendResponse($result, $message)
     {
-        return Response::json(ResponseUtil::makeResponse($message, $result));
+        return Response::json(ResponseUtil::makeResponse($message, [$result]));
     }
 
     public function sendError($error, $code = 404)
@@ -28,11 +28,4 @@ class AppBaseController extends Controller
         return Response::json(ResponseUtil::makeError($error), $code);
     }
 
-    public function sendSuccess($message)
-    {
-        return Response::json([
-            'success' => true,
-            'message' => $message
-        ], 200);
-    }
 }

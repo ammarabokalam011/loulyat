@@ -34,7 +34,6 @@ class CategoryController extends AppBaseController
     public function index(Request $request)
     {
         $categories = $this->categoryRepository->all();
-
         return view('categories.index')
             ->with('categories', $categories);
     }

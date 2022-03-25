@@ -20,8 +20,8 @@ class AuthenticationController extends \App\Http\Controllers\AppBaseController
             return $this->sendError('Credentials not match', 401);
         }
 
-        return $this->sendSuccess([
-            'token' => auth()->user()->createToken('API Token')->plainTextToken
+        return $this->sendResponse([
+            'authenticationToken' => auth()->user()->createToken('API Token')->plainTextToken
         ]);
     }
 

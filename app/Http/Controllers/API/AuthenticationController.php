@@ -22,7 +22,7 @@ class AuthenticationController extends \App\Http\Controllers\AppBaseController
 
         return $this->sendResponse([
             'authenticationToken' => auth()->user()->createToken('API Token')->plainTextToken
-        ]);
+        ],'success');
     }
 
     // this method signs out users by removing tokens

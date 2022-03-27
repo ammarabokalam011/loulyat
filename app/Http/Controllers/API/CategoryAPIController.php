@@ -39,9 +39,18 @@ class CategoryAPIController extends AppBaseController
             $request->get('skip'),
             $request->get('limit')
         );
-
+        foreach ($categories as $category){
+            $isLeaf = true;
+            foreach ($categories as $c){
+                if($category['id']==$c['parentID']){
+                    $isLeaf = false;
+                }
+            }
+            $category->setAttribute('isLeaf', $isLeaf);
+        }
         return $this->sendResponse($categories->toArray(), 'Categories retrieved successfully');
     }
+
 
 
     /**

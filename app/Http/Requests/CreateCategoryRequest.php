@@ -25,6 +25,6 @@ class CreateCategoryRequest extends FormRequest
      */
     public function rules()
     {
-        return User::$rules;
+        return Category::$rules;
     }
 }

@@ -58,12 +58,11 @@ class Category extends Model
      */
     public static $rules = [
         'parentID' => 'nullable',
-        'name' => 'string|max:255',
-        'nameAr' => 'string|max:255',
-        'image' => 'nullable',
+        'name' => 'required|string|max:255',
+        'nameAr' => 'required|string|max:255',
+        'image' => 'required|image',
         'created_at' => 'nullable',
         'updated_at' => 'nullable'
     ];
-
 
 }

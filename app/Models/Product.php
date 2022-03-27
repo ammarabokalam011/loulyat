@@ -75,7 +75,7 @@ class Product extends Model
     public static $rules = [
         'name' => 'required|string|max:255',
         'nameAr' => 'required|string|max:255',
-        'image' => 'nullable',
+        'image' => 'required',
         'description' => 'required|string',
         'specification' => 'required|string',
         'price' => 'required|integer',

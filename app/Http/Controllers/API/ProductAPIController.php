@@ -39,7 +39,7 @@ class ProductAPIController extends AppBaseController
 //            $request->get('skip'),
 //            $request->get('limit')
 //        );
-        $products = Product::where('categoryID',2)->get();
+        $products = Product::where('categoryID',$request->get('categoryID'))->get();
         return $this->sendResponse($products->toArray(), 'Products retrieved successfully');
     }
 

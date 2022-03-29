@@ -46,7 +46,8 @@ class Product extends Model
         'price',
         'quantity',
         'available',
-        'categoryID'
+        'categoryID',
+        'code',
     ];
 
     /**
@@ -64,7 +65,8 @@ class Product extends Model
         'price' => 'integer',
         'quantity' => 'integer',
         'available' => 'boolean',
-        'categoryID' => 'integer'
+        'categoryID' => 'integer',
+        'code' => 'string',
     ];
 
     /**
@@ -82,6 +84,7 @@ class Product extends Model
         'quantity' => 'required|integer',
         'available' => 'required|boolean',
         'categoryID' => 'required',
+        'code' => 'required',
         'created_at' => 'nullable',
         'updated_at' => 'nullable',
         'deleted_at' => 'nullable'

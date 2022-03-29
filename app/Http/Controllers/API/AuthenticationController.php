@@ -8,18 +8,22 @@ use Response;
 
 class AuthenticationController extends \App\Http\Controllers\AppBaseController
 {
+    public function __construct()
+    {
+
+    }
+
     //use this method to signin users
     public function signin(Request $request)
     {
         $attr = $request->validate([
-            'email' => 'required|string|',
+            'phone' => 'required|string|',
             'password' => 'required|string|min:6'
         ]);
-
-        if (!\Illuminate\Support\Facades\Auth::attempt($attr)) {
+        if (!auth()->guard('user')->attempt($attr)) {
             return $this->sendError('Credentials not match', 401);
         }
-        $authenticationToken=auth()->user()->createToken('API Token')->plainTextToken;
+        $authenticationToken=auth()->guard('user')->user()->createToken('API Token')->plainTextToken;
         return $this->sendResponse([
             'authenticationToken' => $authenticationToken
         ],'success');
@@ -28,7 +32,7 @@ class AuthenticationController extends \App\Http\Controllers\AppBaseController
     // this method signs out users by removing tokens
     public function signout()
     {
-        auth()->user()->tokens()->delete();
+        auth()->guard('user')->user()->tokens()->delete();
 
         return [
             'message' => 'Tokens Revoked'

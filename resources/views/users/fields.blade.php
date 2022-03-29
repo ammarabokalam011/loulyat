@@ -8,8 +8,8 @@
 
 <!-- Name Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('email', 'Phone:') !!}
-    {!! Form::text('email', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
+    {!! Form::label('phone', 'Phone:') !!}
+    {!! Form::text('phone', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
 </div>
 
 

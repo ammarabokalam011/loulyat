@@ -7,6 +7,6 @@
 
 <!-- Name Field -->
 <div class="col-sm-12">
-    {!! Form::label('email', 'Email:') !!}
-    <p>{{ $user->email }}</p>
+    {!! Form::label('phone', 'Phone:') !!}
+    <p>{{ $user->phone }}</p>
 </div>

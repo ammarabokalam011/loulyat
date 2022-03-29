@@ -60,3 +60,8 @@
     </p>
 </div>
 
+
+<div class="col-sm-12">
+    {!! Form::label('code', 'Code:') !!}
+    <p>{{ $product->code }}</p>
+</div>

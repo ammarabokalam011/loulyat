@@ -10,7 +10,8 @@
             <th>Price</th>
             <th>Quantity</th>
             <th>Available</th>
-            <th>Categoryid</th>
+            <th>Category id</th>
+            <th>Code</th>
             <th colspan="3">Action</th>
         </tr>
         </thead>
@@ -33,6 +34,7 @@
                         echo 'none';
                     }
                     ?></td>
+                <td>{{ $product->code }}</td>
                 <td width="120">
                     {!! Form::open(['route' => ['products.destroy', $product->id], 'method' => 'delete']) !!}
                     <div class='btn-group'>

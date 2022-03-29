@@ -51,9 +51,10 @@ class ProductAPIController extends AppBaseController
      *
      * @return Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
         /** @var Product $product */
+        $id=$request->get('productID');
         $product = $this->productRepository->find($id);
 
         if (empty($product)) {

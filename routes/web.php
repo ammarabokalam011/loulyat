@@ -17,16 +17,22 @@ use Illuminate\Support\Facades\Route;
 //    return view('welcome');
 //});
 
-Auth::routes();
+Route::get('/login', [\App\Http\Controllers\Auth\AdminAuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [\App\Http\Controllers\Auth\AdminAuthController::class, 'login'])->name('login');
+Route::post('/logout', [\App\Http\Controllers\Auth\AdminAuthController::class, 'logout'])->name('logout');
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::group(['middleware' => ['auth:admin']], function () {
+
+    Route::resource('categories', App\Http\Controllers\CategoryController::class);
 
 
-Route::resource('categories', App\Http\Controllers\CategoryController::class);
+    Route::resource('products', App\Http\Controllers\ProductController::class);
+
+    Route::get('users/rest/{id}','App\Http\Controllers\UserController@rest')->name('users.rest');
+
+    Route::resource('users', App\Http\Controllers\UserController::class);
+
+    Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+});
 
 
-Route::resource('products', App\Http\Controllers\ProductController::class);
-
-Route::get('users/rest/{id}','App\Http\Controllers\UserController@rest')->name('users.rest');
-
-Route::resource('users', App\Http\Controllers\UserController::class);

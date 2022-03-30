@@ -24,6 +24,7 @@ class CreateProductsTable extends Migration
             $table->integer('quantity')->default(0);
             $table->boolean('available')->default(true);
             $table->unsignedBigInteger('categoryID')->index('categoryID');
+            $table->string('code');
             $table->timestamps();
             $table->softDeletes();
         });

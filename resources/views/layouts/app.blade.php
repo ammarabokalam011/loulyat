@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>{{ config('app.name') }}</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <link rel="icon" type="image/x-icon" href="/favicon.png">
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
@@ -37,8 +38,6 @@
     @stack('third_party_stylesheets')
 
     @stack('page_css')
-</head>
-
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
     <!-- Main Header -->
@@ -138,7 +137,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"
         integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A=="
         crossorigin="anonymous"></script>
-        
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/1.3/bootstrapSwitch.min.js"
         integrity="sha512-DAc/LqVY2liDbikmJwUS1MSE3pIH0DFprKHZKPcJC7e3TtAOzT55gEMTleegwyuIWgCfOPOM8eLbbvFaG9F/cA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>

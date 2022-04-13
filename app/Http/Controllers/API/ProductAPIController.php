@@ -34,14 +34,19 @@ class ProductAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-//        $products = $this->productRepository->all(
-//            $request->except(['skip', 'limit']),
-//            $request->get('skip'),
-//            $request->get('limit')
-//        );
         $products = Product::where('categoryID',$request->get('categoryID'))->get();
         return $this->sendResponse($products->toArray(), 'Products retrieved successfully');
     }
+
+    public function getProducts(Request $request)
+    {
+        $ids=$request->get('productsIDs',[]);
+        $ids = array_map('intval', explode(',', $ids));
+
+        $products = Product::whereIn('id',$ids)->get();
+        return $this->sendResponse($products->toArray(), 'Products retrieved successfully');
+    }
+
 
     /**
      * Display the specified Product.
